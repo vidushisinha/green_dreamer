@@ -8,7 +8,7 @@ shinyUI(dashboardPage(
   dashboardSidebar(width = 215,
     sidebarUserPanel(
       name     = 'Green Dreamer',
-      ##image    = 'images.jpg', 
+      image    = 'images.jpg', 
       subtitle = h6('NASA Space APP Challenge')),
     sidebarMenu(
       menuItem(tabName = 'home',        'Home'             , icon = icon('fas fa-home')),
@@ -41,7 +41,7 @@ shinyUI(dashboardPage(
             h4(textOutput('home3')))
         ),
         fluidRow(
-          img(src = 'homepage.jpg', width = '100%')
+          img(src = 'images.jpg', width = '100%')
         )
       ),
 # SOLUTION ########################################################################
