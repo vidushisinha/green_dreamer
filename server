@@ -1,0 +1,126 @@
+
+###############################################################################
+shinyServer(function(input, output) {
+# HOME ########################################################################  
+      output$home1 = renderText(
+        'A carbon footprint is the amount of greenhouse gases-primarily carbon
+        dioxide-released into the atmosphere by a particular human activity. 
+        A carbon footprint can be a broad meaasure or be applied to the actions
+        of an individual, a family, an event, an organization, or even an entire
+        nation. It is usually measured as tons of CO2 emitted per year, a number
+        that can be supplemented by tons of CO2-equivalent gases, including 
+        methane, nitrous oxide, and other greenhouse gases.'
+      )
+      output$home2 = renderText(
+        '•	Electricity and Heat Production
+•	Industry
+•	Agriculture, Forestry, and Other Land Use
+•	Transportation
+•	Buildings
+•	Other Energy')
+      output$home3 = renderText(
+        'Carbon emissions affect the planet significantly, as they are the 
+        greenhouse gas with the highest levels of emissions in the atmosphere. 
+        This, of course, causes global warming and ultimately, climate change.
+        Carbon dioxide is released into the atmosphere when fossil fuels — coal,
+        natural gas, and oil — are burned. But burning other biological 
+        materials also releases carbon dioxide: solid waste, trees, etc. 
+        Anytime that carbon dioxide is emitted into the atmosphere in large 
+        quantities — especially if it is staying in the atmosphere for thousands 
+        of years — it is affecting the planet.Carbon emissions directly affect 
+        humans, too, causing more respiratory disease from an increase of smog 
+        and air pollution. Not to mention that if carbon emissions eradicate 
+        certain animal species, destroy crop yields and lands, humans will also
+        see the repercussions of those effects as well.'
+      )
+# SOLUTION ########################################################################  
+      output$sol1 = renderText(
+        'this is sol1'
+      )
+      output$sol2 = renderText(
+        'this is sol2'
+      )
+      output$sol3 = renderText(
+        'this is sol3'
+      )
+# WORLD MAP ###################################################################  
+     
+# GLOBAL AGGREGATE GRAPHS #####################################################
+    output$aggregate_graph = renderGvis({
+      gvisLineChart(
+        data = as.data.frame(complete.df %>%
+          filter(Record == input$type_total) %>%
+          gather(key = 'Year', value = 'Emission', -c(1:2)) %>%
+          mutate(Year = as.numeric(substr(Year, 2, 5))) %>%
+          group_by(Year) %>%
+          summarise(Total.Emission = sum(Emission))),
+        
+        xvar = 'Year', yvar   = 'Total.Emission',
+        options = list(width  = 'auto', height = '400', 
+                       legend = "{position:'none'}",
+                       hAxis  = "{format: ['####'], title: ['Year']}",
+                       series = "{0: {color: '#26B14C'}}",
+                       lineWidth = 4)
+      )
+    })
+# PER COUNTRY GRAPHS ##########################################################
+    output$percountry_graph = renderPlot(
+      complete.df %>%
+        filter(Country == input$country, Record %in% c('CBA_GgCO2', 'PBA_GgCO2')) %>%
+        gather(key = 'Year', value = 'Emission', -c(1:2)) %>%
+        mutate(Year = as.numeric(substr(Year, 2, 5))) %>%
+        mutate(Record = ifelse(Record == 'CBA_GgCO2', 'Consumption', 'Production')) %>%
+        
+        ggplot(aes(x = Year, y = Emission, color = Record)) +
+        geom_line(size = 2) +
+        ylab(label = 'Emissions (in GgCO2)') +
+        scale_color_discrete(name = 'Emission Type') +
+        theme   (axis.text.x        = element_text(size = 12),
+                 panel.background   = element_rect(fill='white'),
+                 panel.grid.major.y = element_line(color = 'grey'),
+                 panel.grid.minor.y = element_line(color = 'grey'),
+                 panel.grid.major.x = element_line(color = 'grey90'))
+    )
+# TOP 20 GRAPHS ###############################################################
+    output$t20_graph = renderPlot(
+      complete.df %>%
+        select  (Country, Record , X2015) %>%
+        filter  (Record == as.character(input$type_20)) %>%
+        arrange (desc(X2015)) %>%
+        top_n   (20) %>%
+        ggplot  (aes(x= reorder(Country, desc(X2015)), y= X2015)) +
+        geom_col(width = 0.5, fill = 'dark red') +
+        labs    (x = '', y = '') +
+        theme   (axis.text.x        = element_text(angle = 90, hjust = 1, vjust = 0, size = 12),
+                 panel.background   = element_rect(fill='white'),
+                 panel.grid.major.y = element_line(color = 'grey'),
+                 panel.grid.minor.y = element_line(color = 'grey50'))
+    )
+# TOP 20 TABLES ###############################################################
+    output$t20_table = DT::renderDataTable({
+      datatable(data = complete.df %>%
+                filter  (Record == as.character(input$type_20)) %>%
+                select  (Country, X2015) %>%
+                arrange (desc(X2015)) %>%
+                top_n   (20),
+        colnames = c('Country', input$type_20))
+    })
+# ABOUT #######################################################################
+      output$about1 = renderText(
+        'GREEN DREAMER .'
+      )
+      output$about2 = renderText(
+        'Purpose of Project.'
+      )
+      output$about3 = renderText(
+        'source'
+      )
+      output$about4 = renderText(
+        'Tools\Technology'
+      )
+      output$about5 = renderText(
+        'done'
+      )
+###############################################################################
+})
+###############################################################################
