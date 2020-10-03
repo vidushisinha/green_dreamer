@@ -25,17 +25,20 @@ shinyUI(dashboardPage(
     tabItems(
 # HOME ########################################################################
       tabItem(
-        tabName = 'home', h1('A Visualization of the Global Carbon Footprint'),
+        tabName = 'home', h1('An understanding of the Global Carbon Footprint'),
         fluidRow(
           box(
+          title = h2('What is our carbon footprint?'),
             outputId = 'home1',
             width = 12,
             h4(textOutput('home1'))),
           box(
+          title = h2('Global Emissions by Economic Sector'),
             outputId = 'home2',
             width = 12,
             h4(textOutput('home2'))),
           box(
+          title = h2('How Do Carbon Emissions Affect the Planet?'),
             outputId = 'home3',
             width = 12,
             h4(textOutput('home3')))
