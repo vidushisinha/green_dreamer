@@ -44,7 +44,24 @@ shinyServer(function(input, output) {
         'this is sol3'
       )
 # WORLD MAP ###################################################################  
-     
+     output$wmap_gvis = renderGvis({
+        gvisGeoChart(
+          data = complete.df %>% 
+            filter(Record == as.character(input$type_map)) %>%
+            select(Country, Value = matches(paste0('X',as.character(input$year)))) %>%
+            mutate(Proportion = (Value/sum(Value))),
+          locationvar = 'Country',
+          colorvar = 'Value',
+          hovervar = 'Country',
+          options  = list(region = 'world', 
+                         displayMode = 'regions',
+                         colorAxis = "{colors:['#00853f', 'black', '#e31b23']}",
+                         backgroundColor = '#dceef7',
+                         datalessRegionColor = 'grey',
+                         width = 'auto', height = 'auto',
+                         forceFrame = TRUE)
+        )
+    })
 # GLOBAL AGGREGATE GRAPHS #####################################################
     output$aggregate_graph = renderGvis({
       gvisLineChart(
