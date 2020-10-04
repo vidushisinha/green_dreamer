@@ -34,14 +34,26 @@ shinyServer(function(input, output) {
         see the repercussions of those effects as well.'
       )
 # SOLUTION ########################################################################  
-      output$sol1 = renderText(
-        'this is sol1'
+     output$sol1 = renderText(
+        'Lower the amount of energy used to pump, treat, and heat water by 
+        washing your car less often, using climate-appropriate plants in your 
+        garden, installing drip irrigation so that plants receive only what they 
+        need, and making water-efficient choices when purchasing shower heads, 
+        faucet heads, toilets, dishwashers and washing machines.'
       )
       output$sol2 = renderText(
-        'this is sol2'
+        'It has been estimated that 29% of U.S. greenhouse gas emissions result
+        from the “provision of goods,” which means the extraction of resources,
+        manufacturing, transport, and final disposal of “goods” which include 
+        consumer products and packaging, building components, and passenger 
+        vehicles, but excluding food. By buying used products and reselling or
+        recyling items you no longer use, you dramatically reduce your carbon 
+        emissions from the provision of goods.'
       )
       output$sol3 = renderText(
-        'this is sol3'
+        'Whenever you can, advocate for clean alternatives to fossil fuels, such
+        as wind, solar, geothermal, and appropriately designed hydroelectric and
+        biomass energy projects.'
       )
 # WORLD MAP ###################################################################  
      output$wmap_gvis = renderGvis({
@@ -124,19 +136,36 @@ shinyServer(function(input, output) {
     })
 # ABOUT #######################################################################
       output$about1 = renderText(
-        'GREEN DREAMER .'
+        'Team - Green Dreamer '
       )
       output$about2 = renderText(
-        'Purpose of Project.'
+        'This app aims to fashion itself primarily as an interactive and dynamic
+        visualization tool. Parsing a robust and elaborate data source, the goal 
+        is to provide users an intersectional view not available simply through
+        the .csv files. Looking to bring the numbers to life, the purpose is not
+        necessarily to provide inferential information but rather a visual insight
+        into the story the data is trying to tell.'
       )
       output$about3 = renderText(
-        'source'
+        'The primary source of data for this app was derived from the worldmrio.com 
+        website. The Eora site describes itself as "global supply chain database" 
+        that "consists of a multi-region input-output table (MRIO) model". The
+        particular data set consists of 1,522 observations of 48 variables. Namely,
+        it displays data for 190 countries from 1970 until 2015. The records are 
+        categorized over consumption and production based accounting of emissions.
+        The complete information and data is available here: 
+        <http://worldmrio.com/footprints/carbon/>'
       )
       output$about4 = renderText(
-        'Tools\Technology'
+        'This app was built using the Shiny! package on RStudio. The layout is
+        using the ShinyDashboard format. The "World Map" and "Global Aggregates"
+        pages were built using googleVis, while the rest of the app uses ggplot2.
+        The additional packages used to process the data are tidyverse and DT'
       )
       output$about5 = renderText(
-        'done'
+        'The image from the "Home" page was taken from the following site, under 
+        free public domain: 
+        <https://free-images.com/display/chimney_pollution_air_pollution.html>'
       )
 ###############################################################################
 })
