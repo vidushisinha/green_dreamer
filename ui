@@ -48,18 +48,20 @@ shinyUI(dashboardPage(
         )
       ),
 # SOLUTION ########################################################################
-tabItem(
-  tabName = 'solution', h1('Sustainable solution for carbon footprint'),
+ tabName = 'solution', h1('Sustainable solution for carbon footprint'),
   fluidRow(
     box(
+      title = h2('Water usage'),
       outputId = 'sol1',
       width = 12,
       h4(textOutput('sol1'))),
     box(
+      title = h2('Reuse and recycle'),
       outputId = 'sol2',
       width = 12,
       h4(textOutput('sol2'))),
     box(
+      title = h2('Support clean energy sources'),
       outputId = 'sol3',
       width = 12,
       h4(textOutput('sol3')))
